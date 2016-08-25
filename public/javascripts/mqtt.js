@@ -15,6 +15,7 @@ options.protocol = "mqtt";
 var url = "wss://"+options.user+":"+options.password+"@"+options.host+":"+options.port;
 
 
+
 console.log(url);
 
 
@@ -34,27 +35,23 @@ mqttClient = mqtt.connect(url); // you add a ws:// url here
 
 
 
-     mqttClient.on("home/ldr", function(topic, payload) {
-       console.log("arrived payload home ldr");
-       var ldr = document.querySelector('#ldr');
-       ldr.innerHTML = payload;
-       mqttClient.end();
-     });
+     mqttClient.on("message", function(topic, payload) {
+         if(topic === "home/ldr"){
+           console.log("arrived payload home ldr");
+           var ldr = document.querySelector('#ldr');
+           ldr.innerHTML = payload;
+       }
+       if(topic === "home/lamp/status"){
+         var lamp = document.querySelector('#lamp');
 
-     mqttClient.on("home/lamp/status", function(topic, payload) {
-       console.log("arrived payload home ldr");
-      var lamp = document.querySelector('#lamp');
-    
-      var status = Number(payload);
-        if(status){
-          lamp.innerHTML = "ON";
-        }else {
-          lamp.innerHTML = "OFF"
-        }
-       mqttClient.end();
+         var status = Number(payload);
+           if(status){
+             lamp.innerHTML = "ON";
+           }else {
+             lamp.innerHTML = "OFF"
+           }
+       }
      });
-
-     mqttClient.publish("mqtt/demo", "hello world!");
 
 }
 
@@ -63,6 +60,7 @@ function toggleLamp(){
   if(mqttClient.status){
     var lamp = document.querySelector('#lamp');
     mqttClient.publish("lamp/toggle", lamp.innerHTML);
+    mqttClient.publish("home/ldr", "texto");
 }
 }
 
