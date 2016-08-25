@@ -5,14 +5,14 @@ var request = new XMLHttpRequest();
 
 // connects to cloud mqtt server
 function mqttHome(settings){
-var server = {};
-var options = {};
-options.host = settings.server;
-options.port = settings.port;
-options.user = settings.user;
-options.password = settings.password;
-options.protocol = "mqtt";
-var url = "wss://"+options.user+":"+options.password+"@"+options.host+":"+options.port;
+  var server = {};
+  var options = {};
+  options.host = settings.server;
+  options.port = settings.port;
+  options.user = settings.user;
+  options.password = settings.password;
+  options.protocol = "mqtt";
+  var url = "wss://"+options.user+":"+options.password+"@"+options.host+":"+options.port;
 
 
 
@@ -59,8 +59,8 @@ mqttClient = mqtt.connect(url); // you add a ws:// url here
 function toggleLamp(){
   if(mqttClient.status){
     var lamp = document.querySelector('#lamp');
+    // Todo client can modify the html
     mqttClient.publish("lamp/toggle", lamp.innerHTML);
-    mqttClient.publish("home/ldr", "texto");
 }
 }
 
