@@ -1,15 +1,18 @@
 <div class="container">
-	<form action="/login" method="post">
-		<div>
-		<label>Username:</label>
-		<input type="text" name="username"/><br/>
+	<div class="panel panel-default">
+  <div class="panel-heading">LOGIN</div>
+		  <div class="panel-body">
+						<form action="/login" method="post">
+									<div class="form-group form-group-lg">
+									<label for="username">Username:</label>
+									<input type="text" class="form-control" name="username" id="username" placeholder="username">
+								</div>
+								<div class="form-group form-group-lg">
+								 <label for="password">Password:</label>
+								 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+							 </div>
+							 <button type="submit" value="Submit" class="btn btn-default btn-lg btn-block">Submit</button>
+						</form>
+		  </div>
 		</div>
-		<div>
-		<label>Password:</label>
-		<input type="password" name="password"/>
-		</div>
-		<div>
-		<input type="submit" value="Submit"/>
-		</div>
-	</form>
 </div>

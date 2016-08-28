@@ -9,13 +9,11 @@ router.get('/',
   res.render('index', { title: 'Graca Home' });
 });
 
-
-
-router.get('/mqttsettings',
-require('connect-ensure-login').ensureLoggedIn(),
-function(req, res, next) {
-  res.send(mqttSettings);
-});
+// router.get('/mqttsettings',
+// require('connect-ensure-login').ensureLoggedIn(),
+// function(req, res, next) {
+//   res.send(mqttSettings);
+// });
 
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Graca Home' });
