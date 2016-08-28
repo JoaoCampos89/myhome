@@ -19,7 +19,6 @@ socket.on("mqttDisconnected", function(){
 // toggle lamp in room
 function toggleLamp(){
   if(app.connected){
-
     var lamp = document.getElementById("lamp");
         // Todo client can modify the html
         if(lamp.innerHTML =="ON"){
@@ -29,11 +28,29 @@ function toggleLamp(){
           var status = 1;
           socket.emit("home/lamp/toggle", status.toString());
         }{
-
         }
-
     }
 }
+function enableMail(){
+  if(app.connected){
+    var enableMail = document.getElementById("enablemail");
+        // Todo client can modify the html
+        var  status = 0;
+        if(enableMail.innerHTML == "ON"){
+         status = 0;
+         enableMail.innerHTML = "OFF";
+         enableMail.className = "btn btn-danger btn-lg";
+         socket.emit("mailStatus", status.toString());
+        }else if (enableMail.innerHTML =="OFF") {
+          status = 1;
+          enableMail.innerHTML = "ON";
+          enableMail.className = "btn btn-success btn-lg";
+          socket.emit("mailStatus", status.toString());
+        }
+    }
+}
+
+
 
 socket.on("home/lamp/status",function(status){
   var lamp = document.getElementById('lamp');
