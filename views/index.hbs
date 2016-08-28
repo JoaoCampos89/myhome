@@ -1,21 +1,33 @@
 <div class="container">
-  <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
-  <h1>Mqtt Status:</h1>
-  <h1 id="mqtt">Disconnected</h1>
+  <div class="page-header">
+    <h1>{{title}}<small> Welcome to {{title}}</small></h1>
+  </div>
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">  <h2>Mqtt Status:</h2></div>
+    <div class="panel-body">
+      <h3 id="mqtt">Disconnected</h3>
+    </div>
+  </div>
+  <h1></h1>
+  <div class="panel panel-default  text-center">
+        <div class="panel-heading"><h2><i class="icon-lightbulb"></i> Lâmpada</h2>  </div>
+        <div class="panel-body">
+          <button id="lamp" type="button" class="btn btn-success btn-lg  btn-block" onclick="toggleLamp()" name="button">ON</button>
+        </div>
+  </div>
+  <div class="panel panel-default text-center">
+        <div class="panel-heading"><h2>LDR</h2></div>
+        <div class="panel-body">
+            <h3 id="ldr">98</h3>
+        </div>
+  </div>
 
 
 
-  <button id="lamp" type="button" onclick="toggleLamp()" name="button">ON</button>
-  <h1 id="ldr">98</h1>
+
 </div>
 
 
 
-
-
-
-
-
-<script src="/javascripts/browserMqtt.js" charset="utf-8"></script>
-<script src="/javascripts/mqtt.js" charset="utf-8"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/app.js" charset="utf-8"></script>
