@@ -38,6 +38,7 @@ socket.on("home/lamp/status",function(status){
       lamp.innerHTML = "ON";
       lamp.className = "btn btn-success btn-lg btn-block";
   }else {
+      lamp.innerHTML = "OFF";
       lamp.className = "btn btn-danger btn-lg btn-block"
     }
 });
