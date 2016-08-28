@@ -6,43 +6,42 @@ module.exports = function (http){
 
 
     var url = "mqtt://"+ mqttSettings.user+ ":" +mqttSettings.password + "@" + mqttSettings.server + ":" +mqttSettings.port;
-    io.on('connection', function(socket){
+io.on('connection', function(socket){
       if(mqttStatus){
-        io.emit("mqttConnected");
+        socket.emit("mqttConnected");
         mqttClient.publish("home/ldr/get");
       }else{
-        io.emit("mqttDisconnected");
+        socket.emit("mqttDisconnected");
       }
 
-    });
+
 
     mqttClient = mqtt.connect(url); // you add a ws:// url here
     mqttClient.on("connect",function(){
-              console.log("connected");
-              io.emit("mqttConnected");
+  
+              socket.emit("mqttConnected");
               mqttClient.subscribe("home/ldr");
               mqttClient.subscribe("home/lamp/status");
               mqttStatus = true;
 
          mqttClient.on("message", function(topic, payload) {
              if(topic === "home/ldr"){
-               console.log( payload);
-               io.emit("home/ldr",payload.toString());
+               socket.emit("home/ldr",payload.toString());
            }
            if(topic === "home/lamp/status"){
-              io.emit("home/lamp/status",payload);
+              socket.emit("home/lamp/status",payload.toString());
            }
          });
 
-         io.on("home/lamp/toggle",function(status){
-           console.log("lamp toggle");
-           mqttClient.publish("home/lamp/toggle",status);
-         });
-         io.on("home/lamp/status",function(){
-           mqttClient.publish("home/lamp/status/get");
-         });
 
 
+
+    });
+    socket.on("home/lamp/toggle",function(status){
+      mqttClient.publish("home/lamp/toggle",status);
+    });
+    socket.on("home/lamp/status",function(){
+      mqttClient.publish("home/lamp/status/get");
     });
 
 
@@ -50,4 +49,6 @@ module.exports = function (http){
            io.emit("mqttDisconnected");
             mqttStatus = false;
         });
-}
+
+  });
+};

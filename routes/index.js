@@ -1,7 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
-var mqttSettings = require('../private/mqtt.js').mqttSettings;
+
 /* GET home page. */
 router.get('/',
  require('connect-ensure-login').ensureLoggedIn(),

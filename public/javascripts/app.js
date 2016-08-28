@@ -1,7 +1,12 @@
 var socket = io();
 var app = {};
 app.connected = false;
-// events checking if mqtt is connected
+socket.on('connect',function(){
+   socket.emit('test', 'Hello server');
+ });
+
+
+//events checking if mqtt is connected
 socket.on("mqttConnected", function(){
   app.connected = true;
   document.getElementById("mqtt").innerHTML = "Connected";
@@ -19,11 +24,10 @@ function toggleLamp(){
         // Todo client can modify the html
         if(lamp.innerHTML =="ON"){
          var  status = 0;
-           console.log("lamp toggled");
-         socket.emit("home/lamp/toggle", status);
+         socket.emit("home/lamp/toggle", status.toString());
         }else if (lamp.innerHTML =="OFF") {
           var status = 1;
-          socket.emit("home/lamp/toggle", status);
+          socket.emit("home/lamp/toggle", status.toString());
         }{
 
         }
